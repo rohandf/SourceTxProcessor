@@ -14,6 +14,9 @@ from PIL import ImageChops
 import pillow_lut
 import os
 
+#testpath
+exerelpath = '_internal/'
+
 # directory paths
 inputdir = None
 outputdir = None
@@ -30,27 +33,13 @@ r = None
 
 # step 0: introductions
 def intro()-> None:
-    print(
-        '''
-
-========SourceTxProcessor by Blapman007========
-                     1.0.0
-
-Input textures must end with:
-"_D.tga" for diffuse, "_M.tga" for metalness,
-"_N.tga" for normalmap, "_R.tga" for roughness
-Images MUST be in RGB mode.
-Images must be sized the same dimensions.
-
-Output textures will be in a subfolder of
-input folder called "processed"
-If issues, please message on discord or twitter
-@blapman007
-
-===============================================
-
-        '''
-    )
+    print("========SourceTxProcessor by Blapman007========")
+    print("                     1.0.0 \n")
+    print("Output textures will be in a subfolder of")
+    print("input folder called 'processed' \n")
+    print("If issues, please message on discord or twitter")
+    print("@blapman007")
+    print("===============================================")
     get_input_dir()     # CALL NEXT STEP
 
 # step 1: get input directory, where textures are stored
@@ -58,7 +47,8 @@ def get_input_dir()-> None:
     global inputdir
     inputdir = input("Input Folder: ")
     inputdir = inputdir.strip()
-
+    if inputdir == "quit":
+        return 0
     if os.path.exists(inputdir):
         print("Folder found.")
         if inputdir[-1]!='\\' or inputdir[-1]!='/':
@@ -92,19 +82,19 @@ def find_input_files()-> None:
     print("Finding textures...")
     files=os.listdir(inputdir)
     for f in files:
-        if f.endswith("_D.tga"): # Find Diffuse
+        if ("_d" in f.lower()) or ("d_" in f.lower()): # Find Diffuse
             diffusepath = inputdir+f
             d=f
             print("Diffuse tga found.")
-        elif f.endswith("_M.tga"): # Find Metalness
+        elif ("_m" in f.lower()) or ("m_" in f.lower()): # Find Metalness
             metalpath = inputdir+f
             m=f
             print("Metalness tga found.")
-        elif f.endswith("_N.tga"): # Find Normalmap
+        elif ("_n" in f.lower()) or ("n_" in f.lower()): # Find Normalmap
             normalpath = inputdir+f
             n=f
             print("Normalmap tga found.")
-        elif f.endswith("_R.tga"): # Find Roughness
+        elif ("_r" in f.lower()) or ("r_" in f.lower()): # Find Roughness
             roughpath = inputdir+f
             r=f
             print("Roughness tga found.")
@@ -146,7 +136,7 @@ def normalmap_process()-> None:
     print("Opened roughness...")
     gloss = ImageChops.invert(r_im)
     print("Roughness to gloss...")
-    lut = pillow_lut.load_cube_file('m6ob10.cube')
+    lut = pillow_lut.load_cube_file(exerelpath+'m6ob10.cube')
     print("Loaded LUT m6ob10...")
     gloss = gloss.filter(lut)
     print("Gloss LUTted...")
@@ -168,7 +158,7 @@ def exponent_process()-> None:
     r_size = r_im.size
     gloss = ImageChops.invert(r_im)
     print("Roughness to gloss...")
-    lut = pillow_lut.load_cube_file('m24.cube')
+    lut = pillow_lut.load_cube_file(exerelpath+'m24.cube')
     print("Loaded LUT m24...")
     gloss = gloss.filter(lut)
     print("Gloss LUTted...")
@@ -182,6 +172,7 @@ def exponent_process()-> None:
     print("Exponent mask creation finished. Image saved.")
     print("ALL PROCESSING FINISHED SUCCESSFULLY.")
     print("YOU MAY CLOSE THE PROGRAM, OR PROCESS ANOTHER FOLDER.")
+    print("TYPE quit TO QUIT")
     get_input_dir()
 
 intro() #kick off the chain
