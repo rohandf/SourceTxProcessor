@@ -1,0 +1,16 @@
+Diffuse Process:
+• Paste Metallic into diffuse Alpha
+• Save diffuse with alpha
+
+Normal Process:
+• Invert Roughness to get Gloss (oldgloss)
+• Duplicate Gloss (oldgloss = newgloss)
+• Apply levels newgloss median (gamma) 0.6, output black 10
+• Paste newgloss into normalmap alpha
+• Save normal with alpha
+
+Exponent Process:
+• Apply levels oldgloss median 0.24 
+• //copy oldgloss to red channel
+• Fill oldgloss green and blue channel white
+• Save exponent
