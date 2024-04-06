@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SourceTxProcessor</title>
+    <link rel="icon" type="image/x-icon" href="img\7logo.ico">
+    <link rel="stylesheet" href="css\bstyle.css">
+
+    <script type="text/javascript" src="eel.js"></script>
+
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>SourceTxProcessor</h1>
+    </div>
+    <!-- Mode -->
+    <div class="panel">
+        <p>1 ] Choose a mode to start:</p>
+        <div class="mode-selector">
+            <button class="mode-btn" onclick="f_mrfilepanel()">Metalness Roughness workflow</button>
+        </div>
+    </div>
+    <!-- Mode -->
+    <!-- Input -->
+    <div class="panel" id="metalrough-mode" style="display: none;">
+        <p>2 ] Select input folder:</p>
+        <div class="files-selector">
+            <label for="inputdirsel">Input Folder:</label>
+            <input type="text" id="inputdirsel"> <br>
+            <h4 id="input-err-msg" style="margin: 0; color: crimson; font-family: Arial, Helvetica, sans-serif; display: none;">Error. Path is not valid.</h5> <br>
+        </div>
+        <button onclick="f_showoutput()" class="mode-btn">Continue</button>
+    </div>
+    <!-- Input -->
+    <!-- Output -->
+    <div class="panel" id="output-panel" style="display: none;">
+        <p>3 ] Select an output folder:</p>
+        <label for="outputdirsel">Output Folder:</label>
+        <input type="text" id="outputdirsel"> <br>
+        <h4 id="output-err-msg" style="margin: 0; color: crimson; font-family: Arial, Helvetica, sans-serif; display: none;">Error. Path is not valid.</h5> <br>
+        <button onclick="f_showconsole()" class="mode-btn">Continue</button>
+    </div>
+    <!-- Output -->
+    <!-- Console -->
+    <div class="panel" id="console-panel" style="display: none;">
+        <p>4 ] Console output:</p>
+        <div id="console-output">
+            <p id="logger"></p>
+        </div>
+    </div>
+    <!-- Console -->
+
+    <script>
+
+        var mrfilepanel = document.getElementById("metalrough-mode");
+        var outputpanel = document.getElementById("output-panel");
+        var consolepanel = document.getElementById("console-panel");
+
+        var inputdirsel = document.getElementById('inputdirsel');
+        var inputdirerr = document.getElementById('input-err-msg');
+
+        var outputdirsel = document.getElementById('outputdirsel');
+        var outputdirerr = document.getElementById('output-err-msg');
+        var coutput = document.getElementById('logger');
+
+        function f_mrfilepanel(){
+            mrfilepanel.style.display = "block";
+        }
+        async function f_showoutput(){
+            if(inputdirsel.value==""){
+                inputdirerr.style.display = "block";
+            }
+            else{
+                let infoldercheck = await eel.input_folder_check(inputdirsel.value)()
+                console.log(infoldercheck)
+                if(infoldercheck==true){
+                    inputdirerr.style.display = "none";
+                    outputpanel.style.display = "block";
+                }
+                else{
+                    inputdirerr.style.display = "block";
+                }
+            }
+        }
+        async function f_showconsole(){
+            // check if path is valid
+            path = outputdirsel.value;
+            let foldercheck = await eel.output_folder_check(path)()
+            if(foldercheck){
+                outputdirerr.style.display = "none";
+                consolepanel.style.display = "block";
+                // start porting process
+                var fpath = outputdirsel.value
+                eel.start_export_process(fpath)
+            }
+            else{
+                outputdirerr.style.display = "block";
+            }
+        }
+        eel.expose(f_customlogger)
+        function f_customlogger(cout){
+            coutput.innerText += cout;
+        }
+        function f_consoleclear(){
+            coutput.innerText = "";
+        }
+    </script>
+
+</body>
+</html>

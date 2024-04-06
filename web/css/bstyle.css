@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'Archivo';
+    src: url('../fonts/Archivo-Medium.ttf');
+}
+
+
+body {
+    background-color: rgb(24, 24, 24);
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h1{
+    font-family: Archivo;
+}
+p{
+    font-family: Archivo;
+    font-size: larger;
+    margin: 0;
+    margin-bottom: 15px;
+}
+label{
+    font-family: Archivo;
+    font-size: medium;
+}
+.panel{
+    background-color: rgb(46, 46, 46);
+    background-image: linear-gradient(90deg, rgb(46, 46, 46), rgb(20, 20, 20));
+    padding: 7px;
+    border: 1px gray solid;
+    margin-bottom: 15px;
+}
+.mode-btn{
+    color: white;
+    font-family: Archivo;
+    font-size: medium;
+    background-image: linear-gradient(0deg, rgba(6,6,6,1) 0%, rgba(18,18,18,1) 5%, rgba(34,34,34,1) 45%, rgba(57,57,57,1) 92%, rgba(89,89,89,1) 96%, rgba(163,163,163,1) 100%);
+    padding: 7px;
+    border: 1px solid gray;
+    outline: 0px solid gray;
+    border-radius: 7px;
+    transition-duration: 0.05s;
+}
+.mode-btn:hover{
+    outline: 2px solid rgb(255, 255, 255);
+    background-image: linear-gradient(0deg, rgba(6,6,6,1) 0%, rgba(12,12,12,1) 5%, rgba(50,50,50,1) 45%, rgba(91,91,91,1) 92%, rgba(105,105,105,1) 96%, rgba(163,163,163,1) 100%);
+}
+#console-output {
+    background-color: black;
+    color: white;
+    overflow: scroll;
+    min-height: 100px;
+    padding: 20px;
+    max-height: 500px;
+}
+#console-output p{
+    font-family: monospace;
+}
