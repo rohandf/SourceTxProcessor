@@ -29,4 +29,7 @@ They may interfere with the process.
 (if folder has textures related to body material, similarly named textures related to face must not be present. one material at a time.)  
 
 ## IN THE CASE PROGRAM DOES NOT OPEN
-Right click the app in file explorer, open properties, and there may be an option to unblock the program on your computer.  WARNING! This is a risky procedure and you should only do this for apps and devs you trust.  You may also have to disable your antivirus software.
+Security error:
+Right click the app in file explorer, open properties, and there may be an option to unblock the program on your computer.  WARNING! This is a risky procedure and you should only do this for apps and devs you trust.  You may also have to disable your antivirus software.  
+
+Error on compile, bottle.py: Find bottle.py and comment out lines 72-76
