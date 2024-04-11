@@ -20,7 +20,7 @@ All four textures must be in the same folder.
 2. Copy the folder path.
 3. Paste/type it into the terminal window when asked for a path.
 4. Program will locate files and process them.
-5. Output textures will be saved in a subfolder of input folder, called 'processed'.
+5. Output textures will be saved in the specified folder.
 6. Convert the textures to vtf and create vmts using VTFEdit.
 
 ## Warnings
